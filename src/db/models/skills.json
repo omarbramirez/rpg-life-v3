@@ -1,0 +1,29 @@
+[
+    {
+        "title": "JavaScript Mastery",
+        "description": "At an advanced level in JavaScript, I can architect complex applications, optimize performance, handle asynchronous operations with precision, and integrate advanced concepts like closures, prototypes, and module patterns to build scalable and efficient solutions.",
+        "level": 14,
+        "category": "Hard Skills",
+        "public": true,
+        "img": "/assets/imgs/mission.jpg",
+        "icon": "./assets/icons/question-mark.svg"
+    },
+    {
+        "title": "Gotham's renewal",
+        "description": "At an advanced level of emotional management, I can navigate complex feelings with self-awareness and control, maintain balance in challenging situations, and foster healthier relationships. I have developed the ability to recognize and stabilize harmful narcissistic tendencies, shifting focus toward empathy, humility, and a constructive sense of self-worth that supports personal growth and collaboration.",
+        "level": 5,
+        "category": "Soft Skills",
+        "public": false,
+        "img": "./assets/icons/javascript.svg",
+        "icon": "./assets/icons/javascript.svg"
+    },
+    {
+        "title": "Advanced English",
+        "description": "At an advanced level in English, I can communicate fluently and effectively in both written and spoken forms, adapt my tone and style to various contexts, understand nuanced expressions and idiomatic language, and engage in complex discussions or presentations with confidence and clarity.",
+        "level": 21,
+        "category": "Perks",
+        "public": true,
+        "img": "./assets/icons/javascript.svg",
+        "icon": "./assets/icons/javascript.svg"
+    }
+]

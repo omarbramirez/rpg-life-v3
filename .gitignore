@@ -1,0 +1,42 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+log/
+
+# Environment variables
+.env
+.env.local
+
+# Compiled output
+dist/
+build/
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Ignore specific folders
+Cliente/
+
+# React/Vite project inside 'client' folder
+client/node_modules/
+client/dist/
+client/.env
+client/.DS_Store
+client/.cache/
+client/yarn.lock
+client/package-lock.json
+client/.vite/
+client/.next/
+client/coverage/
+client/public/build/

@@ -1,0 +1,7 @@
+@import url("components/skillComponents/skillCard.module.css");
+@import url("components/skillComponents/skillItem.module.css");
+
+*{
+    background-color: #3b3b3b;
+    color:azure;
+}
