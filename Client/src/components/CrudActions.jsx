@@ -1,20 +1,23 @@
-import { handleCurrentSkillDeleting } from "../../controllers/skillscontrollers";
-
-function CrudActions({ setCrudAction, skill, setTotalSkills }) {
+function CrudActions({
+  element,
+  setTotalElements,
+  setAction,
+  handleCurrentElementDeleting,
+}) {
   return (
     <div>
-      <button
+      {/* <button
         onClick={(event) => {
           event.preventDefault();
           setCrudAction("ADD");
         }}
       >
         Add
-      </button>
+      </button> */}
       <button
         onClick={(event) => {
           event.preventDefault();
-          setCrudAction("EDIT");
+          setAction("EDIT");
         }}
       >
         Edit
@@ -22,8 +25,8 @@ function CrudActions({ setCrudAction, skill, setTotalSkills }) {
       <button
         onClick={(event) => {
           event.preventDefault();
-          setCrudAction("REMOVE");
-          handleCurrentSkillDeleting(skill, setTotalSkills);
+          handleCurrentElementDeleting(element, setTotalElements);
+          setAction("REMOVE");
         }}
       >
         Remove

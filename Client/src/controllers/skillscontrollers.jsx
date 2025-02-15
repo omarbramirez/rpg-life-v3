@@ -77,11 +77,11 @@ export const pathValidator = (src, folder) => {
 };
 
 export const imgValidator = (newSkill) => {
-  let img = "mission.jpg";
+  let defaultImg = "mission.jpg";
   const imgRegex = /\.(jpg|jpeg|png|svg)$/i;
-  newSkill["img"] === "" && !imgRegex.test(newSkill["img"])
-    ? (newSkill["img"] = img)
-    : newSkill["img"];
+  if (!newSkill["img"] || !imgRegex.test(newSkill["img"])) {
+    newSkill["img"] = defaultImg;
+  }
 };
 
 export const iconAssignment = (newSkill) => {

@@ -20,3 +20,48 @@ export const getCompletedQuests = async () => {
     console.error("Internal server error:", err);
   }
 };
+
+export const getQuestsNumber = async () => {
+  try {
+    const response = await axios.get(`${baseURL}/get-quests-number`);
+    const questsNumber = response.data;
+    return questsNumber;
+  } catch (err) {
+    console.error("Internal server error for getQuestsNumber():", err);
+  }
+};
+
+export const addNewQuest = async (newQuest) => {
+  try {
+    const response = await axios.post(`${baseURL}/add-quest`, newQuest);
+    const success = response.data;
+    return success;
+  } catch (err) {
+    console.error("Internal server error for addNewQuest():", err);
+  }
+};
+
+export const deleteCurrentQuest = async (currentQuest) => {
+  try {
+    const response = await axios.delete(`${baseURL}/delete-quest`, {
+      data: currentQuest,
+    });
+    const success = response.data;
+    return success;
+  } catch (err) {
+    console.error("Internal server error:", err);
+  }
+};
+
+export const updateCurrentQuest = async (fieldsModified) => {
+  console.log("uwu", fieldsModified);
+  try {
+    const response = await axios.patch(`${baseURL}/update-quest`, {
+      data: fieldsModified,
+    });
+    const success = response.data;
+    return success;
+  } catch (err) {
+    console.error("Internal server error for updateCurrentQuest():", err);
+  }
+};

@@ -7,7 +7,8 @@ quests.get('/get-active-quests', questsControllers.getActiveQuests)
 quests.get('/get-completed-quests', questsControllers.getCompletedQuests)
 quests.post('/add-quest', questsControllers.addOneQuest)
 quests.delete('/delete-quest', questsControllers.deleteOneQuest)
-quests.put('/update-quest', questsControllers.updateOneQuest)
+quests.patch('/update-quest', questsControllers.updateOneQuest)
+quests.get('/get-quests-number', questsControllers.getQuestsNumber)
 
 module.exports = quests;
 

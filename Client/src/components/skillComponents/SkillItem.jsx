@@ -1,6 +1,6 @@
 import { pathValidator } from "../../controllers/skillscontrollers";
 
-function SkillItem({ skill }) {
+function SkillItem({ skill, action, formData, handleChange }) {
   return (
     <>
       {skill ? (
@@ -13,7 +13,20 @@ function SkillItem({ skill }) {
             />
           </li>
           <li>
-            <p>{skill.description}</p>
+            {action === "EDIT" ? (
+              <div>
+                <label htmlFor="description">Description:</label>
+                <textarea
+                  name="description"
+                  id="description"
+                  value={formData.description || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ) : (
+              <p>{skill.description}</p>
+            )}
           </li>
         </ul>
       ) : null}

@@ -13,7 +13,11 @@ function CompletedQuests() {
       <h2>Completed</h2>
       {quests
         ? quests.map((quest, index) => (
-            <QuestCard key={`completed-quest-${index}`} quest={quest} />
+            <QuestCard
+              key={`completed-quest-${index}`}
+              quest={quest}
+              completed={quest.completed}
+            />
           ))
         : null}
     </>

@@ -15,7 +15,7 @@ exports.getAllQuests = async (req, res) =>{
 
 exports.getActiveQuests = async (req, res) =>{
     try{
-        const activeQuests = await mySchemas.QuestSchema.find({status: 'In progress'})
+        const activeQuests = await mySchemas.QuestSchema.find({completed: false}).sort({createdAt: -1})
         res.status(200).json(activeQuests);
     }catch(err){
         console.error("Error:", err);
@@ -27,7 +27,7 @@ exports.getActiveQuests = async (req, res) =>{
 
 exports.getCompletedQuests = async (req, res) =>{
     try{
-        const completedQuests = await mySchemas.QuestSchema.find({status: 'Completed'})
+        const completedQuests = await mySchemas.QuestSchema.find({completed: true}).sort({createdAt: -1})
         res.status(200).json(completedQuests);
     }catch(err){
         console.error("Error", err);
@@ -40,11 +40,10 @@ exports.getCompletedQuests = async (req, res) =>{
 exports.addOneQuest = async(req, res) =>{
     const {title, description, status, SXP, CXP, category, skill, public} = req.body
     try{
-        const newQuest = { title, description, status, SXP, CXP, category, skill, public }
+        const newQuest = { title, description, status, SXP, CXP , category, skill, public }
         console.log(newQuest)
         const newQuestCreated = await mySchemas.QuestSchema.create(newQuest)
-        newQuestCreated.save()
-        res.status(200).json(newQuest);
+        res.status(200).json({success: true});
     }catch(err){
         console.error('Error:', err);
         res.status(500).json({ 
@@ -67,12 +66,25 @@ exports.deleteOneQuest  = async(req, res) =>{
 }
 
 exports.updateOneQuest = async(req, res) =>{
-    const title = req.body.title
+    const title = req.body.data.title
     const allowedFields = ['new_title', 'description', 'status', 'SXP', 'CXP', 'category', 'skill', 'public']
-    const update = fieldFilters.filterUpdateField(req.body, allowedFields)
+    const update = fieldFilters.filterUpdateField(req.body.data, allowedFields)
+    console.log(title)
     try{
         await mySchemas.QuestSchema.findOneAndUpdate({title: title}, update)
-        res.status(200).json(title);
+        res.status(200).json({success: true});
+    }catch(err){
+        console.error('Error:', err);
+        res.status(500).json({ 
+            message: 'Internal server error. Please try again later.' 
+        });
+    }
+}
+
+exports.getQuestsNumber = async(req, res) =>{
+    try{
+        const total = await mySchemas.QuestSchema.estimatedDocumentCount()
+        res.status(200).json({ total });
     }catch(err){
         console.error('Error:', err);
         res.status(500).json({ 

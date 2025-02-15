@@ -1,47 +1,43 @@
-import {
-  handleNewSkillCreation,
-  imgValidator,
-  iconAssignment,
-} from "../../controllers/skillscontrollers";
 import { useState } from "react";
-function SkillForm({ action, setTotalSkills }) {
+import { handleNewQuestCreation } from "../../controllers/questscontrollers";
+function QuestForm({ setTotalQuests, setCrudAction }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    level: 0,
+    status: "",
+    SXP: 0,
+    CXP: 0,
     category: "",
+    skill: "",
     public: false,
-    img: "",
-    icon: "",
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    imgValidator(formData);
-    iconAssignment(formData);
-    if (action === "ADD") {
-      handleNewSkillCreation(formData, setTotalSkills);
-    }
+    console.log(formData);
+    handleNewQuestCreation(formData, setTotalQuests);
     setFormData({
       title: "",
       description: "",
-      level: 0,
+      status: "",
+      SXP: 0,
+      CXP: 0,
       category: "",
+      skill: "",
       public: false,
-      img: "",
-      icon: "",
     });
+    setCrudAction(null);
   };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]:
         type === "checkbox"
           ? checked
           : name === "level"
-          ? Math.max(0, Number(value)) // Evita valores negativos
+          ? Math.max(0, Number(value))
           : value,
     }));
   };
@@ -55,27 +51,6 @@ function SkillForm({ action, setTotalSkills }) {
           id="title"
           name="title"
           value={formData.title || ""}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
-          name="description"
-          id="description"
-          value={formData.description || ""}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="level">Level:</label>
-        <input
-          type="number"
-          id="level"
-          name="level"
-          value={formData.level >= 0 ? formData.level : 0}
           onChange={handleChange}
           required
         />
@@ -96,36 +71,47 @@ function SkillForm({ action, setTotalSkills }) {
         </select>
       </div>
       <div>
-        <label htmlFor="public">Public:</label>
+        <label htmlFor="CXP">CXP:</label>
         <input
-          type="checkbox"
-          id="public"
-          name="public"
-          checked={formData.public || ""}
+          type="number"
+          id="CXP"
+          name="CXP"
+          value={formData.CXP >= 0 ? formData.CXP : 0}
           onChange={handleChange}
         />
       </div>
       <div>
-        <label htmlFor="img">Image Path:</label>
-        <textarea
-          name="img"
-          id="img"
-          value={formData.img || ""}
+        <label htmlFor="skill">Skill:</label>
+        <input
+          type="text"
+          id="skill"
+          name="skill"
+          value={formData.skill}
           onChange={handleChange}
         />
       </div>
-      {/* <div>
-        <label htmlFor="icon">Icon Path:</label>
-        <textarea
-          name="icon"
-          id="icon"
-          value={formData.icon || ""}
+      <div>
+        <label htmlFor="SXP">SXP:</label>
+        <input
+          type="number"
+          id="SXP"
+          name="SXP"
+          value={formData.SXP >= 0 ? formData.SXP : 0}
           onChange={handleChange}
         />
-      </div> */}
+      </div>
+      <div>
+        <label htmlFor="description">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+        />
+      </div>
       <button type="submit">Send</button>
     </form>
   );
 }
 
-export default SkillForm;
+export default QuestForm;

@@ -11,10 +11,9 @@ const questSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    status:{
-        type: String,
-        required: true,
-        trim: true
+    completed:{
+        type: Boolean,
+        default: false 
     },
         SXP:{
             type: Number,
@@ -39,7 +38,8 @@ const questSchema = new mongoose.Schema({
         type: Boolean,
         default: true 
     }
-})
+},
+{timestamps: true})
 
 const QuestSchema = mongoose.model('QuestSchema', questSchema, 'quests' )
 const mySchemas = { 'QuestSchema': QuestSchema}
