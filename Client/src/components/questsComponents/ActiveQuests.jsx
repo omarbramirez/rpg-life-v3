@@ -11,7 +11,7 @@ function ActiveQuests() {
   const [totalQuests, setTotalQuests] = useState(initialTotalQuests);
   const [crudAction, setCrudAction] = useState(null);
   const [dataUpdated, setDataUpdated] = useState(false);
-
+  const [selectedQuest, setSelectedQuest] = useState(null);
   useEffect(() => {
     handlePaginationLimit().then((data) => setTotalQuests(data));
     localStorage.setItem("currentTotalQuests", totalQuests.toString());
@@ -19,46 +19,48 @@ function ActiveQuests() {
   //aqui me quedé
   useEffect(() => {
     getActiveQuests().then((data) => setQuests(data));
-    console.log(totalQuests);
     localStorage.setItem("currentTotalQuests", totalQuests.toString());
   }, [totalQuests]);
 
   useEffect(() => {
     if (dataUpdated === true) {
       getActiveQuests().then((data) => setQuests(data));
-      console.log(totalQuests);
       setDataUpdated(false);
     }
   }, [dataUpdated]);
 
+  useEffect(() => {
+    console.log(selectedQuest);
+  }, [selectedQuest]);
   return (
     <>
-      {crudAction === "ADD" ? (
-        <QuestForm
-          setTotalQuests={setTotalQuests}
-          setCrudAction={setCrudAction}
-        />
-      ) : (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setCrudAction("ADD");
-          }}
-        >
-          Add
-        </button>
-      )}
       <div>
         <h2>Quests</h2>
+        {crudAction === "ADD" ? (
+          <QuestForm
+            setTotalQuests={setTotalQuests}
+            setCrudAction={setCrudAction}
+          />
+        ) : (
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setCrudAction("ADD");
+            }}
+          >
+            Add
+          </button>
+        )}
         {quests
           ? quests.map((quest, index) => (
               <QuestCard
                 key={`active-quest-${index}`}
                 quest={quest}
-                crudAction={crudAction}
-                setCrudAction={setCrudAction}
                 setTotalQuests={setTotalQuests}
                 setDataUpdated={setDataUpdated}
+                setCrudAction={setCrudAction}
+                action={selectedQuest === quest.title ? crudAction : null}
+                setSelectedQuest={setSelectedQuest}
               />
             ))
           : null}

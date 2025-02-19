@@ -4,7 +4,6 @@ import {
   deleteCurrentSkill,
   updateCurrentSkill,
 } from "../routes/skills";
-import { getOneSkill } from "../routes/skills";
 
 export const handlePagination = async (
   direction,
@@ -42,9 +41,8 @@ export const handleCurrentSkillDeleting = async (skill, setTotalSkills) => {
 export const handleCurrentSkillUpdating = async (
   formData,
   skill,
-  currentSkill,
-  setCrudAction,
-  setSkill
+  setAction,
+  setDataUpdated
 ) => {
   let fieldsModified = {};
   for (const [key, value] of Object.entries(formData)) {
@@ -59,10 +57,8 @@ export const handleCurrentSkillUpdating = async (
   if (Object.keys(fieldsModified).length !== 0) {
     const success = await updateCurrentSkill(fieldsModified);
     if (success) {
-      setCrudAction(null);
-      getOneSkill(currentSkill).then((data) => {
-        setSkill(data[0]);
-      });
+      setAction(null);
+      setDataUpdated(true);
     }
   }
 };

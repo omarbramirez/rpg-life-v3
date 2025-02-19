@@ -2,7 +2,7 @@ const express = require('express');
 const skills = express.Router();
 const skillsControllers = require('../controllers/skillsControllers');
 
-skills.get('/skills',skillsControllers.getAllSkills);
+skills.get('/skills-titles',skillsControllers.getAllSkillsTitles);
 skills.get('/get-one-skill', skillsControllers.getOneSkill)
 skills.get('/get-skills-number', skillsControllers.getSkillsNumber)
 skills.get('/skills',skillsControllers.getOneSkill);

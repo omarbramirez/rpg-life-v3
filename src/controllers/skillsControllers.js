@@ -1,9 +1,9 @@
 const mySchemas = require('../db/models/skills')
 const fieldFilters = require('../helpers/fieldFilters');
 
-exports.getAllSkills = async (req, res) =>{
+exports.getAllSkillsTitles = async (req, res) =>{
     try{
-        const skills = await mySchemas.SkillSchema.find().sort({createdAt: -1}).limit(2);
+        const skills = await mySchemas.SkillSchema.find().sort({createdAt: -1}).select('title'); 
         res.status(200).json(skills);
     }catch(err){
         console.error('Error:', err);

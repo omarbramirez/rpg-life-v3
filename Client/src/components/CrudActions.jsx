@@ -3,24 +3,18 @@ function CrudActions({
   setTotalElements,
   setAction,
   handleCurrentElementDeleting,
+  setSelectedElementOnClick,
 }) {
   return (
     <div>
-      {/* <button
-        onClick={(event) => {
-          event.preventDefault();
-          setCrudAction("ADD");
-        }}
-      >
-        Add
-      </button> */}
       <button
         onClick={(event) => {
           event.preventDefault();
           setAction("EDIT");
+          setSelectedElementOnClick(element.title);
         }}
       >
-        Edit
+        Edits
       </button>
       <button
         onClick={(event) => {

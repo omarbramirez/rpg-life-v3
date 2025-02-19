@@ -89,7 +89,7 @@ function SkillForm({ action, setTotalSkills }) {
           onChange={handleChange}
           required
         >
-          <option value="unknown">Select Category</option>
+          <option value="">Select Category</option>
           <option value="Hard Skills">Hard Skills</option>
           <option value="Soft Skills">Soft Skills</option>
           <option value="unknown">Unknown</option>

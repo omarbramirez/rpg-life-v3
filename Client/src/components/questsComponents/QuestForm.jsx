@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { handleNewQuestCreation } from "../../controllers/questscontrollers";
+import { getAllSkillsTitles } from "../../routes/skills";
 function QuestForm({ setTotalQuests, setCrudAction }) {
+  const [skillsTitles, setSkillsTitles] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -28,6 +30,12 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
     });
     setCrudAction(null);
   };
+  useEffect(() => {
+    getAllSkillsTitles().then((data) => {
+      console.log(data);
+      setSkillsTitles(data);
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -64,7 +72,7 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           onChange={handleChange}
           required
         >
-          <option value="unknown">Select Category</option>
+          <option value=" ">Select Category</option>
           <option value="Hard Skills">Hard Skills</option>
           <option value="Soft Skills">Soft Skills</option>
           <option value="unknown">Unknown</option>
@@ -81,16 +89,24 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
         />
       </div>
       <div>
-        <label htmlFor="skill">Skill:</label>
-        <input
-          type="text"
-          id="skill"
-          name="skill"
-          value={formData.skill}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
+        <div>
+          <label htmlFor="skill">Skill:</label>
+          <select
+            name="skill"
+            id="skill"
+            value={formData.skill || ""}
+            onChange={handleChange}
+            required
+          >
+            {skillsTitles
+              ? skillsTitles.map((skill) => (
+                  <option key={`skill-${skill.title}`} value={`${skill.title}`}>
+                    {skill.title}
+                  </option>
+                ))
+              : null}
+          </select>
+        </div>
         <label htmlFor="SXP">SXP:</label>
         <input
           type="number"

@@ -1,11 +1,11 @@
 import axios from "axios";
 const baseURL = import.meta.env.VITE_REACT_APP_API_URL;
 
-export const getAllSkills = async () => {
+export const getAllSkillsTitles = async () => {
   try {
-    const response = await axios.get(`${baseURL}/skills`);
-    const allSkills = response.data;
-    return allSkills;
+    const response = await axios.get(`${baseURL}/skills-titles`);
+    const allSkillsTitles = response.data;
+    return allSkillsTitles;
   } catch (err) {
     console.error("Internal server error:", err);
   }

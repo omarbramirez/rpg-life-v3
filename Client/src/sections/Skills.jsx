@@ -3,7 +3,12 @@ import SkillCard from "../components/skillComponents/SkillCard";
 import SkillItem from "../components/skillComponents/SkillItem";
 import Pagination from "../components/skillComponents/Pagination";
 import { getOneSkill } from "../routes/skills";
-import { handleCurrentSkillDeleting } from "../controllers/skillscontrollers";
+import {
+  handleCurrentSkillDeleting,
+  handleCurrentSkillUpdating,
+  imgValidator,
+  iconAssignment,
+} from "../controllers/skillscontrollers";
 import CrudActions from "../components/CrudActions";
 import SkillForm from "../components/skillComponents/SkillForm";
 
@@ -15,6 +20,7 @@ function Skills() {
   const [currentSkill, setCurrentSkill] = useState(parseInt(initialSkill));
   const [crudAction, setCrudAction] = useState(null);
   const [totalSkills, setTotalSkills] = useState(parseInt(initialTotalSkills));
+  const [dataUpdated, setDataUpdated] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -24,8 +30,6 @@ function Skills() {
     img: "",
     icon: "",
   });
-
-  //tengo que hacer una inizializacion de totalskills
 
   useEffect(() => {
     if (crudAction === "EDIT") {
@@ -61,6 +65,15 @@ function Skills() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalSkills]);
 
+  useEffect(() => {
+    if (dataUpdated === true) {
+      getOneSkill(currentSkill).then((data) => {
+        setSkill(data[0]);
+      });
+      setDataUpdated(false);
+    }
+  }, [dataUpdated]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -75,6 +88,29 @@ function Skills() {
     }));
   };
 
+  const handleSubmit = () => {
+    imgValidator(formData);
+    iconAssignment(formData);
+    console.log("sumbitting");
+    if (crudAction === "EDIT") {
+      handleCurrentSkillUpdating(
+        formData,
+        skill,
+        setCrudAction,
+        setDataUpdated
+      );
+    }
+    setFormData({
+      title: "",
+      description: "",
+      level: 0,
+      category: "",
+      public: false,
+      img: "",
+      icon: "",
+    });
+  };
+
   return (
     <section>
       <Pagination
@@ -82,12 +118,15 @@ function Skills() {
         currentSkill={currentSkill}
         totalSkills={totalSkills}
       />
-      <CrudActions
-        setAction={setCrudAction}
-        element={skill}
-        setTotalElements={setTotalSkills}
-        handleCurrentElementDeleting={handleCurrentSkillDeleting}
-      />
+      {crudAction === "EDIT" ? null : (
+        <CrudActions
+          setAction={setCrudAction}
+          element={skill}
+          setTotalElements={setTotalSkills}
+          handleCurrentElementDeleting={handleCurrentSkillDeleting}
+        />
+      )}
+
       <button
         onClick={(event) => {
           event.preventDefault();
@@ -121,6 +160,16 @@ function Skills() {
         formData={formData}
         handleChange={handleChange}
       />
+      {crudAction === "EDIT" ? (
+        <button
+          onClick={(event) => {
+            event.preventDefault();
+            handleSubmit();
+          }}
+        >
+          Enviar
+        </button>
+      ) : null}
     </section>
   );
 }
