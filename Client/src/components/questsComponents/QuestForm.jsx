@@ -6,29 +6,31 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    status: "",
+    completed: false,
     SXP: 0,
     CXP: 0,
-    category: "",
     skill: "",
     public: false,
   });
+  const [emptyFields, setEmptyFields] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    handleNewQuestCreation(formData, setTotalQuests);
-    setFormData({
-      title: "",
-      description: "",
-      status: "",
-      SXP: 0,
-      CXP: 0,
-      category: "",
-      skill: "",
-      public: false,
-    });
-    setCrudAction(null);
+    if (formData.skill !== "") {
+      handleNewQuestCreation(formData, setTotalQuests);
+      setFormData({
+        title: "",
+        description: "",
+        completed: false,
+        SXP: 0,
+        CXP: 0,
+        skill: "",
+        public: false,
+      });
+      setCrudAction(null);
+    } else {
+      setEmptyFields(true);
+    }
   };
   useEffect(() => {
     getAllSkillsTitles().then((data) => {
@@ -48,6 +50,7 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           ? Math.max(0, Number(value))
           : value,
     }));
+    setEmptyFields(false);
   };
 
   return (
@@ -63,7 +66,7 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           required
         />
       </div>
-      <div>
+      {/* <div>
         <label htmlFor="category">Category:</label>
         <select
           name="category"
@@ -77,7 +80,7 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           <option value="Soft Skills">Soft Skills</option>
           <option value="unknown">Unknown</option>
         </select>
-      </div>
+      </div> */}
       <div>
         <label htmlFor="CXP">CXP:</label>
         <input
@@ -126,6 +129,7 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
         />
       </div>
       <button type="submit">Send</button>
+      {emptyFields ? window.alert(`Skill is required`) : null}
     </form>
   );
 }

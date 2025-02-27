@@ -113,6 +113,7 @@ function Skills() {
 
   return (
     <section>
+      <h2>SKILLS</h2>
       <Pagination
         setCurrentSkill={setCurrentSkill}
         currentSkill={currentSkill}
@@ -135,8 +136,6 @@ function Skills() {
       >
         Add
       </button>
-
-      <h1>Skills</h1>
       {crudAction === "ADD" ? (
         <SkillForm
           action={crudAction}

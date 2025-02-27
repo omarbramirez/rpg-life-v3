@@ -1,11 +1,5 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
-    title:{
-        type: String,
-        required: true
-    }
-})
 
 const skillSchema = new mongoose.Schema({
     title: {
@@ -56,6 +50,5 @@ const skillSchema = new mongoose.Schema({
 );
 
 const SkillSchema = mongoose.model('SkillSchema', skillSchema, 'skills')
-const CategorySchema = mongoose.model('CategorySchema', categorySchema, 'stats')
-const mySchemas = {'CategorySchema': CategorySchema, 'SkillSchema': SkillSchema};
+const mySchemas = {'SkillSchema': SkillSchema};
 module.exports = mySchemas;

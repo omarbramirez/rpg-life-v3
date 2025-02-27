@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Omar, el Arquitecto del Código Abismal",
+        "totalPX": 10,
+        "level": 0,
+        "nextLevelPX": 10,
+       "img": "mission.jpg",
+        "activeQuest": "Deal with all tax issues"
+      }
+]

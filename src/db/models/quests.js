@@ -25,10 +25,6 @@ const questSchema = new mongoose.Schema({
             required: true,
             min: 0
         },
-    category: {
-        type: String,
-        required: true
-    },
     skill: {
         type: String,
         required: true, 

@@ -3,6 +3,7 @@ import CrudActions from "../CrudActions";
 import {
   handleCurrentQuestDeleting,
   handleCurrentQuestUpdating,
+  handleCurrentQuestCompleting,
 } from "../../controllers/questscontrollers";
 import { getAllSkillsTitles } from "../../routes/skills";
 function QuestCard({
@@ -12,15 +13,15 @@ function QuestCard({
   setCrudAction,
   action,
   setSelectedQuest,
+  completed,
 }) {
   const [skillsTitles, setSkillsTitles] = useState(null);
   const [formData, setFormData] = useState({
     title: quest.title,
     description: quest.description,
-    status: quest.status,
+    completed: false,
     SXP: quest.SXP,
     CXP: quest.CXP,
-    category: quest.category,
     skill: quest.skill,
     public: quest.public,
   });
@@ -30,8 +31,6 @@ function QuestCard({
       setSkillsTitles(data);
     });
   }, []);
-
-  // const [action, setAction] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -69,7 +68,7 @@ function QuestCard({
             ) : (
               <h3>{quest.title}</h3>
             )}
-            {action === "EDIT" ? (
+            {/* {action === "EDIT" ? (
               <div>
                 <select
                   name="category"
@@ -78,7 +77,7 @@ function QuestCard({
                   onChange={handleChange}
                   required
                 >
-                  <option value=" ">Select Category</option>
+                  <option value="unknown">Select Category</option>
                   <option value="Hard Skills">Hard Skills</option>
                   <option value="Soft Skills">Soft Skills</option>
                   <option value="unknown">Unknown</option>
@@ -86,7 +85,7 @@ function QuestCard({
               </div>
             ) : (
               <h4>{quest.category}</h4>
-            )}
+            )} */}
           </li>
           <li>
             {action === "EDIT" ? (
@@ -167,17 +166,27 @@ function QuestCard({
                   handleSubmit();
                 }}
               >
-                Enviar
+                Send
               </button>
-            ) : (
-              <CrudActions
-                setAction={setCrudAction}
-                element={quest}
-                setTotalElements={setTotalQuests}
-                handleCurrentElementDeleting={handleCurrentQuestDeleting}
-                setSelectedElementOnClick={setSelectedQuest}
-              />
-            )}
+            ) : !completed ? (
+              <div>
+                <CrudActions
+                  setAction={setCrudAction}
+                  element={quest}
+                  setTotalElements={setTotalQuests}
+                  handleCurrentElementDeleting={handleCurrentQuestDeleting}
+                  setSelectedElementOnClick={setSelectedQuest}
+                />
+                <button
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleCurrentQuestCompleting(quest, setTotalQuests);
+                  }}
+                >
+                  Complete
+                </button>
+              </div>
+            ) : null}
           </li>
         </ul>
       ) : null}

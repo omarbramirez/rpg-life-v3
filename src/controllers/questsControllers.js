@@ -27,7 +27,7 @@ exports.getActiveQuests = async (req, res) =>{
 
 exports.getCompletedQuests = async (req, res) =>{
     try{
-        const completedQuests = await mySchemas.QuestSchema.find({completed: true}).sort({createdAt: -1})
+        const completedQuests = await mySchemas.QuestSchema.find({completed: true}).sort({createdAt: -1}).limit(5)
         res.status(200).json(completedQuests);
     }catch(err){
         console.error("Error", err);
@@ -67,7 +67,7 @@ exports.deleteOneQuest  = async(req, res) =>{
 
 exports.updateOneQuest = async(req, res) =>{
     const title = req.body.data.title
-    const allowedFields = ['new_title', 'description', 'status', 'SXP', 'CXP', 'category', 'skill', 'public']
+    const allowedFields = ['new_title', 'description', 'completed', 'SXP', 'CXP', 'category', 'skill', 'public']
     const update = fieldFilters.filterUpdateField(req.body.data, allowedFields)
     console.log(title)
     try{

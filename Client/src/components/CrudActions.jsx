@@ -14,7 +14,7 @@ function CrudActions({
           setSelectedElementOnClick(element.title);
         }}
       >
-        Edits
+        Edit
       </button>
       <button
         onClick={(event) => {

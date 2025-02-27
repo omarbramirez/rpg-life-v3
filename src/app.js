@@ -1,7 +1,8 @@
 const express = require('express');
 const connectDatabase  = require('./db/connection');
 const skills = require('./routes/skills');
-const quests = require('./routes/quests')
+const quests = require('./routes/quests');
+const stats = require('./routes/stats')
 const bodyParser= require('body-parser')
 const cors = require('cors')
 
@@ -19,7 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use('/', skills)
 app.use('/', quests)
-
+app.use('/', stats)
 // Conectar la base de datos
 connectDatabase();
 

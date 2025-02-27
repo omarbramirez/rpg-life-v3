@@ -4,11 +4,9 @@ import { handlePaginationLimit } from "../../controllers/questscontrollers";
 import QuestCard from "./QuestCard";
 import QuestForm from "./QuestForm";
 
-function ActiveQuests() {
-  const initialTotalQuests = localStorage.getItem("currentTotalQuests") || 1;
-
+function ActiveQuests({ totalQuests, setTotalQuests }) {
   const [quests, setQuests] = useState(null);
-  const [totalQuests, setTotalQuests] = useState(initialTotalQuests);
+
   const [crudAction, setCrudAction] = useState(null);
   const [dataUpdated, setDataUpdated] = useState(false);
   const [selectedQuest, setSelectedQuest] = useState(null);
@@ -35,7 +33,7 @@ function ActiveQuests() {
   return (
     <>
       <div>
-        <h2>Quests</h2>
+        <h3>Active Quests</h3>
         {crudAction === "ADD" ? (
           <QuestForm
             setTotalQuests={setTotalQuests}
