@@ -51,3 +51,21 @@ export const addSXPToSkill = async (SXP, skill) => {
     console.error("Internal server error for addSXPToSkill():", err);
   }
 };
+
+export const levelUp = async () => {
+  try {
+    await axios.patch(`${baseURL}/level-up`);
+  } catch (err) {
+    console.error("Internal server error for levelUp():", err);
+  }
+};
+
+export const updateElement = async (formData) => {
+  try {
+    await axios.patch(`${baseURL}/update-element`, {
+      data: formData,
+    });
+  } catch (err) {
+    console.error("Internal server error for updateElement():", err);
+  }
+};

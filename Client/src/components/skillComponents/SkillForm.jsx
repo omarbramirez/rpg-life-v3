@@ -4,7 +4,7 @@ import {
   iconAssignment,
 } from "../../controllers/skillscontrollers";
 import { useState } from "react";
-function SkillForm({ action, setTotalSkills }) {
+function SkillForm({ action, setTotalSkills, setAction }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -105,7 +105,7 @@ function SkillForm({ action, setTotalSkills }) {
           onChange={handleChange}
         />
       </div>
-      <div>
+      {/* <div>
         <label htmlFor="img">Image Path:</label>
         <textarea
           name="img"
@@ -113,7 +113,7 @@ function SkillForm({ action, setTotalSkills }) {
           value={formData.img || ""}
           onChange={handleChange}
         />
-      </div>
+      </div> */}
       {/* <div>
         <label htmlFor="icon">Icon Path:</label>
         <textarea
@@ -124,6 +124,14 @@ function SkillForm({ action, setTotalSkills }) {
         />
       </div> */}
       <button type="submit">Send</button>
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          setAction(null);
+        }}
+      >
+        Close
+      </button>
     </form>
   );
 }

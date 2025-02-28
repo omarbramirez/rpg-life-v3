@@ -35,6 +35,11 @@ const statsSchema = new mongoose.Schema({
         type: String,
         required: true, // La descripción es obligatoria
         trim: true
+    },
+    targetDate: {
+        type: String,
+        required: true, // Fecha obligatoria
+        trim: true // Establece la fecha actual por defecto
     }
 })
 

@@ -14,7 +14,6 @@ function ActiveQuests({ totalQuests, setTotalQuests }) {
     handlePaginationLimit().then((data) => setTotalQuests(data));
     localStorage.setItem("currentTotalQuests", totalQuests.toString());
   }, []);
-  //aqui me quedé
   useEffect(() => {
     getActiveQuests().then((data) => setQuests(data));
     localStorage.setItem("currentTotalQuests", totalQuests.toString());
@@ -59,6 +58,7 @@ function ActiveQuests({ totalQuests, setTotalQuests }) {
                 setCrudAction={setCrudAction}
                 action={selectedQuest === quest.title ? crudAction : null}
                 setSelectedQuest={setSelectedQuest}
+                selectedQuest={selectedQuest}
               />
             ))
           : null}

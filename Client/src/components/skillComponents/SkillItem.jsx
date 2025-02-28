@@ -5,13 +5,13 @@ function SkillItem({ skill, action, formData, handleChange }) {
     <>
       {skill ? (
         <ul key={`skill-${skill.title}`}>
-          <li>
+          {/* <li>
             <img
               className="skill_img"
               src={`${pathValidator(skill.img, "imgs")}`}
               alt={`${skill.title}-img`}
             />
-          </li>
+          </li> */}
           <li>
             {action === "EDIT" ? (
               <div>

@@ -12,25 +12,20 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
     skill: "",
     public: false,
   });
-  const [emptyFields, setEmptyFields] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.skill !== "") {
-      handleNewQuestCreation(formData, setTotalQuests);
-      setFormData({
-        title: "",
-        description: "",
-        completed: false,
-        SXP: 0,
-        CXP: 0,
-        skill: "",
-        public: false,
-      });
-      setCrudAction(null);
-    } else {
-      setEmptyFields(true);
-    }
+    handleNewQuestCreation(formData, setTotalQuests);
+    setFormData({
+      title: "",
+      description: "",
+      completed: false,
+      SXP: 0,
+      CXP: 0,
+      skill: "",
+      public: false,
+    });
+    setCrudAction(null);
   };
   useEffect(() => {
     getAllSkillsTitles().then((data) => {
@@ -50,7 +45,6 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           ? Math.max(0, Number(value))
           : value,
     }));
-    setEmptyFields(false);
   };
 
   return (
@@ -66,57 +60,45 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           required
         />
       </div>
-      {/* <div>
-        <label htmlFor="category">Category:</label>
-        <select
-          name="category"
-          id="category"
-          value={formData.category}
-          onChange={handleChange}
-          required
-        >
-          <option value=" ">Select Category</option>
-          <option value="Hard Skills">Hard Skills</option>
-          <option value="Soft Skills">Soft Skills</option>
-          <option value="unknown">Unknown</option>
-        </select>
-      </div> */}
       <div>
         <label htmlFor="CXP">CXP:</label>
         <input
           type="number"
           id="CXP"
           name="CXP"
-          value={formData.CXP >= 0 ? formData.CXP : 0}
+          value={formData.CXP > 0 ? formData.CXP : 0}
           onChange={handleChange}
+          required
         />
       </div>
       <div>
-        <div>
-          <label htmlFor="skill">Skill:</label>
-          <select
-            name="skill"
-            id="skill"
-            value={formData.skill || ""}
-            onChange={handleChange}
-            required
-          >
-            {skillsTitles
-              ? skillsTitles.map((skill) => (
-                  <option key={`skill-${skill.title}`} value={`${skill.title}`}>
-                    {skill.title}
-                  </option>
-                ))
-              : null}
-          </select>
-        </div>
+        <label htmlFor="skill">Skill:</label>
+        <select
+          name="skill"
+          id="skill"
+          value={formData.skill || ""}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Skill</option>
+          {skillsTitles
+            ? skillsTitles.map((skill) => (
+                <option key={`skill-${skill.title}`} value={`${skill.title}`}>
+                  {skill.title}
+                </option>
+              ))
+            : null}
+        </select>
+      </div>
+      <div>
         <label htmlFor="SXP">SXP:</label>
         <input
           type="number"
           id="SXP"
           name="SXP"
-          value={formData.SXP >= 0 ? formData.SXP : 0}
+          value={formData.SXP > 0 ? formData.SXP : 0}
           onChange={handleChange}
+          required
         />
       </div>
       <div>
@@ -129,7 +111,14 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
         />
       </div>
       <button type="submit">Send</button>
-      {emptyFields ? window.alert(`Skill is required`) : null}
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          setCrudAction(null);
+        }}
+      >
+        Close
+      </button>
     </form>
   );
 }

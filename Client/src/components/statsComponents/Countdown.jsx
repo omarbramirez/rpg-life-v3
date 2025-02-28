@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
 function Countdown({ targetDate }) {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
 
-    return () => clearInterval(timer); // Limpiar el intervalo al desmontar el componente
-  }, []);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
-  function calculateTimeLeft() {
+  function calculateTimeLeft(targetDate) {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
 

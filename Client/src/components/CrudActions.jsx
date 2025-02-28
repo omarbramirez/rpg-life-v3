@@ -11,7 +11,9 @@ function CrudActions({
         onClick={(event) => {
           event.preventDefault();
           setAction("EDIT");
-          setSelectedElementOnClick(element.title);
+          if (setSelectedElementOnClick) {
+            setSelectedElementOnClick(element.title);
+          }
         }}
       >
         Edit

@@ -13,6 +13,7 @@ function QuestCard({
   setCrudAction,
   action,
   setSelectedQuest,
+  selectedQuest,
   completed,
 }) {
   const [skillsTitles, setSkillsTitles] = useState(null);
@@ -31,6 +32,18 @@ function QuestCard({
       setSkillsTitles(data);
     });
   }, []);
+
+  useEffect(() => {
+    setFormData({
+      title: quest.title,
+      description: quest.description,
+      completed: false,
+      SXP: quest.SXP,
+      CXP: quest.CXP,
+      skill: quest.skill,
+      public: quest.public,
+    });
+  }, [selectedQuest]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -68,126 +81,132 @@ function QuestCard({
             ) : (
               <h3>{quest.title}</h3>
             )}
-            {/* {action === "EDIT" ? (
-              <div>
-                <select
-                  name="category"
-                  id="category"
-                  value={formData.category || ""}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="unknown">Select Category</option>
-                  <option value="Hard Skills">Hard Skills</option>
-                  <option value="Soft Skills">Soft Skills</option>
-                  <option value="unknown">Unknown</option>
-                </select>
-              </div>
-            ) : (
-              <h4>{quest.category}</h4>
-            )} */}
           </li>
-          <li>
-            {action === "EDIT" ? (
-              <div>
-                <label htmlFor="CXP">CXP:</label>
-                <input
-                  type="number"
-                  id="CXP"
-                  name="CXP"
-                  value={formData.CXP >= 0 ? formData.CXP : 0}
-                  onChange={handleChange}
-                />
-              </div>
-            ) : (
-              <h4>{quest.CXP}</h4>
-            )}
-          </li>
-          <li>
-            {action === "EDIT" ? (
-              <div>
-                <label htmlFor="skill">Skill:</label>
-                <select
-                  name="skill"
-                  id="skill"
-                  value={formData.skill || ""}
-                  onChange={handleChange}
-                  required
-                >
-                  {skillsTitles
-                    ? skillsTitles.map((skill) => (
-                        <option
-                          key={`skill-${skill.title}`}
-                          value={`${skill.title}`}
-                        >
-                          {skill.title}
-                        </option>
-                      ))
-                    : null}
-                </select>
-              </div>
-            ) : (
-              <h4>{quest.skill}</h4>
-            )}
-            {action === "EDIT" ? (
-              <div>
-                <label htmlFor="SXP">SXP:</label>
-                <input
-                  type="number"
-                  id="SXP"
-                  name="SXP"
-                  value={formData.SXP >= 0 ? formData.SXP : 0}
-                  onChange={handleChange}
-                />
-              </div>
-            ) : (
-              <h4>{quest.SXP}</h4>
-            )}
-          </li>
-          {action === "EDIT" ? (
-            <div>
-              <label htmlFor="description">Description:</label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-            </div>
-          ) : (
-            <li>{quest.description}</li>
-          )}
+          {!completed ? (
+            <li>
+              {action === "EDIT" ? (
+                <div>
+                  <label htmlFor="CXP">CXP:</label>
+                  <input
+                    type="number"
+                    id="CXP"
+                    name="CXP"
+                    value={formData.CXP >= 0 ? formData.CXP : 0}
+                    onChange={handleChange}
+                  />
+                </div>
+              ) : (
+                <h4>{quest.CXP}</h4>
+              )}
+            </li>
+          ) : null}
+          {!completed ? (
+            <li>
+              {action === "EDIT" ? (
+                <div>
+                  <label htmlFor="skill">Skill:</label>
+                  <select
+                    name="skill"
+                    id="skill"
+                    value={formData.skill || ""}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Skill</option>
+                    {skillsTitles
+                      ? skillsTitles.map((skill) => (
+                          <option
+                            key={`skill-${skill.title}`}
+                            value={`${skill.title}`}
+                          >
+                            {skill.title}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+              ) : (
+                <h4>{quest.skill}</h4>
+              )}
+            </li>
+          ) : null}
+
+          {!completed ? (
+            <li>
+              {action === "EDIT" ? (
+                <div>
+                  <label htmlFor="SXP">SXP:</label>
+                  <input
+                    type="number"
+                    id="SXP"
+                    name="SXP"
+                    value={formData.SXP >= 0 ? formData.SXP : 0}
+                    onChange={handleChange}
+                  />
+                </div>
+              ) : (
+                <h4>{quest.SXP}</h4>
+              )}
+            </li>
+          ) : null}
 
           <li>
             {action === "EDIT" ? (
-              <button
-                onClick={(event) => {
-                  event.preventDefault();
-                  handleSubmit();
-                }}
-              >
-                Send
-              </button>
-            ) : !completed ? (
               <div>
-                <CrudActions
-                  setAction={setCrudAction}
-                  element={quest}
-                  setTotalElements={setTotalQuests}
-                  handleCurrentElementDeleting={handleCurrentQuestDeleting}
-                  setSelectedElementOnClick={setSelectedQuest}
+                <label htmlFor="description">Description:</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
                 />
-                <button
-                  onClick={(event) => {
-                    event.preventDefault();
-                    handleCurrentQuestCompleting(quest, setTotalQuests);
-                  }}
-                >
-                  Complete
-                </button>
               </div>
-            ) : null}
+            ) : (
+              <p>{quest.description}</p>
+            )}
           </li>
+          {!completed ? (
+            <li>
+              {action === "EDIT" ? (
+                <div>
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleSubmit();
+                    }}
+                  >
+                    Send
+                  </button>
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setCrudAction(null);
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <CrudActions
+                    setAction={setCrudAction}
+                    element={quest}
+                    setTotalElements={setTotalQuests}
+                    handleCurrentElementDeleting={handleCurrentQuestDeleting}
+                    setSelectedElementOnClick={setSelectedQuest}
+                  />
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleCurrentQuestCompleting(quest, setTotalQuests);
+                    }}
+                  >
+                    Complete
+                  </button>
+                </div>
+              )}
+            </li>
+          ) : null}
         </ul>
       ) : null}
     </div>

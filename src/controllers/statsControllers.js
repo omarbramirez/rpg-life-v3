@@ -3,6 +3,8 @@ const myQuestsSchemas = require('../db/models/quests')
 
 const myStatsSchemas = require('../db/models/stats')
 
+const levelCalculator = require('../helpers/levelCalculators');
+
 exports.getUser = async(req,res)=>{
     try{
         const user = await myStatsSchemas.StatsSchema.find();
@@ -43,12 +45,12 @@ exports.addCXPToStats = async (req, res) => {
     const { CXP } = req.body.data;
     try {
        
-        const filter = {name:
-"Omar, el Arquitecto del Código Abismal"}; 
+//         const filter = {name:
+// "Omar, el Arquitecto del Código Abismal"}; 
         const update = { $inc: { totalPX: CXP } }; 
 
         const updatedStats = await myStatsSchemas.StatsSchema.findOneAndUpdate(
-            filter,
+            {},
             update,
             { new: true } 
         );
@@ -93,4 +95,49 @@ exports.addSXPToSkill = async(req, res) => {
         message: 'Internal server error. Please try again later.' 
     })
 }
+}
+
+exports.levelUp = async(req,res) =>{
+    const user = await myStatsSchemas.StatsSchema.find();
+    const{
+        totalPX, nextLevelPX, level} = user[0]
+    const newTotalPX = Math.round(totalPX - nextLevelPX)  
+    const newNextLevelPX = Math.round(((nextLevelPX * 0.2) *
+    level ) + nextLevelPX)
+    const updatedStats = { 
+        nextLevelPX: newNextLevelPX,totalPX
+:   newTotalPX, level:level +1}; 
+    const updateCompleted = await myStatsSchemas.StatsSchema.findOneAndUpdate(
+        {},
+        updatedStats,
+        { new: true } 
+    );
+
+    if (!updateCompleted) {
+        return res.status(404).json({ 
+            message: 'Stats not found.' 
+        });
+    }
+
+    res.status(200).json(updateCompleted);
+
+    
+}
+
+exports.updateElement = async(req,res) =>{
+    const modifiedFields = req.body.data
+    
+    try{
+        const updateCompleted = await myStatsSchemas.StatsSchema.updateOne(
+            {},
+            modifiedFields,
+            { new: true } 
+        );
+        res.status(200).json(updateCompleted);
+    }catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ 
+            message: 'Internal server error. Please try again later.' 
+        });
+    }
 }

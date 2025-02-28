@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 import Avatar from "../components/statsComponents/Avatar";
 import ListedSkill from "../components/statsComponents/ListedSkill";
-import UserName from "../components/statsComponents/UserName";
+// import UserName from "../components/statsComponents/UserName";
 import Countdown from "../components/statsComponents/Countdown";
 import ActiveQuest from "../components/statsComponents/ActiveQuest";
-import { getSkillList, getUser } from "../routes/stats";
+import { getSkillList, getUser, levelUp, updateElement } from "../routes/stats";
+
 function Stats() {
   const [listedSkills, setListedSkills] = useState(null);
   const [user, setUser] = useState(null);
-  const [targetDate, setTargetDate] = useState("2025-06-01");
-
+  const [editableElement, setEditableElement] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    img: "",
+    targetDate: "",
+  });
   useEffect(() => {
     getUser()
       .then((data) => {
         setUser(data);
       })
-      .catch((error) => console.error("Error fetching getSkillList():", error));
+      .catch((error) => console.error("Error fetching getUser():", error));
 
     getSkillList()
       .then((data) => {
@@ -23,6 +28,35 @@ function Stats() {
       })
       .catch((error) => console.error("Error fetching getSkillList():", error));
   }, []);
+
+  const handleSubmit = async () => {
+    const { name, img, targetDate } = formData;
+    if (name?.length > 0) {
+      await updateElement({ name: name });
+    }
+    if (targetDate?.length > 0) {
+      await updateElement({ targetDate: targetDate });
+    }
+    getUser()
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((error) => console.error("Error fetching getUser():", error));
+    setEditableElement(null);
+    setFormData({
+      name: "",
+      img: "",
+      targetDate: "",
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
@@ -33,7 +67,52 @@ function Stats() {
             <h3>Info</h3>
             <ul>
               <li>
-                <UserName username={user.name} />
+                {editableElement === user.name ? (
+                  <div>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name || ""}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                ) : (
+                  <h4>{user.name}</h4>
+                )}
+
+                {!editableElement ? (
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setEditableElement(`${user.name}`);
+                      setFormData({ name: `${user.name}` });
+                    }}
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <div>
+                    <button
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleSubmit();
+                        setEditableElement(null);
+                      }}
+                    >
+                      Send
+                    </button>
+                    <button
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setEditableElement(null);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                )}
               </li>
               <li>
                 <table>
@@ -41,6 +120,18 @@ function Stats() {
                     <tr>
                       <th>LVL</th>
                       <td>{user.level}</td>
+                      <td>
+                        {user.totalPX > user.nextLevelPX ? (
+                          <button
+                            onClick={(event) => {
+                              event.preventDefault();
+                              levelUp();
+                            }}
+                          >
+                            Level Up
+                          </button>
+                        ) : null}
+                      </td>
                     </tr>
                     <tr>
                       <th>NEXT LVL</th>
@@ -81,7 +172,36 @@ function Stats() {
           ) : null}
         </section>
       ) : null}
-      {targetDate ? <Countdown targetDate={targetDate} /> : null}
+      <div>
+        <input
+          type="date"
+          id="date"
+          name="targetDate"
+          value={formData.targetDate || ""}
+          onChange={handleChange}
+          required
+        />
+        <div>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              handleSubmit();
+              setEditableElement(null);
+            }}
+          >
+            Send
+          </button>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setEditableElement(null);
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+      {user ? <Countdown targetDate={user.targetDate} /> : null}
 
       {user?.activeQuest ? (
         <section>

@@ -58,7 +58,14 @@ function Skills() {
     }
     if (crudAction === "REMOVE") {
       let newPage = currentSkill - 1 < 0 ? 0 : currentSkill - 1;
+      if (newPage === 0) {
+        getOneSkill(0).then((data) => {
+          setSkill(data[0]);
+        });
+      }
       setCurrentSkill(newPage);
+      localStorage.setItem("currentSkill", currentSkill.toString());
+      setCrudAction(null);
     }
     localStorage.setItem("currentTotal", totalSkills.toString());
     setCrudAction(null);
@@ -144,6 +151,7 @@ function Skills() {
           formData={formData}
           setFormData={setFormData}
           handleChange={handleChange}
+          setAction={setCrudAction}
         />
       ) : null}
       <SkillCard
@@ -160,14 +168,24 @@ function Skills() {
         handleChange={handleChange}
       />
       {crudAction === "EDIT" ? (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            handleSubmit();
-          }}
-        >
-          Enviar
-        </button>
+        <div>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              handleSubmit();
+            }}
+          >
+            Send
+          </button>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setCrudAction(null);
+            }}
+          >
+            Close
+          </button>
+        </div>
       ) : null}
     </section>
   );
