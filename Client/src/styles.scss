@@ -1,0 +1,9 @@
+@use 'reset';
+@use 'variables';
+
+body {
+    font-family: variables.$font-family-primary;
+    font-size: variables.$font-size-base;
+    color: variables.$text-color;
+    background-color: variables.$background-color;
+}

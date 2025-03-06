@@ -40,7 +40,12 @@ const statsSchema = new mongoose.Schema({
         type: String,
         required: true, // Fecha obligatoria
         trim: true // Establece la fecha actual por defecto
-    }
+    },
+    chapter:{
+        type:String,
+        required:true,
+        trim: true
+    },
 })
 
 const StatsSchema = mongoose.model('StatsSchema', statsSchema, 'stats')

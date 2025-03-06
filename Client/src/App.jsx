@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles.css";
 import Skills from "./sections/Skills";
 import Quests from "./sections/Quests";
 import Stats from "./sections/Stats";
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>CAPITULO 0</h1>
+        <h1>CHAPTER III: MONTAÑA SENIORITY</h1>
         <ul>
           <li>
             <button
