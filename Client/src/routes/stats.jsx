@@ -54,7 +54,7 @@ export const addSXPToSkill = async (SXP, skill) => {
 
 export const levelUp = async () => {
   try {
-    await axios.patch(`${baseURL}/level-up`);
+    const response = await axios.patch(`${baseURL}/level-up`);
   } catch (err) {
     console.error("Internal server error for levelUp():", err);
   }

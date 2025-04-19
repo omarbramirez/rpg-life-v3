@@ -2,7 +2,7 @@ function ListedSkill({ skill }) {
   return (
     <tr>
       <th>{skill.title}</th>
-      <th>{skill.level}</th>
+      <th className="stats--number">{skill.level}</th>
     </tr>
   );
 }

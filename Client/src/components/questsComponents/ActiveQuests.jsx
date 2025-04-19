@@ -25,29 +25,29 @@ function ActiveQuests({ totalQuests, setTotalQuests }) {
       setDataUpdated(false);
     }
   }, [dataUpdated]);
-
-  useEffect(() => {
-    console.log(selectedQuest);
-  }, [selectedQuest]);
   return (
     <>
       <div>
-        <h3>Active Quests</h3>
-        {crudAction === "ADD" ? (
-          <QuestForm
-            setTotalQuests={setTotalQuests}
-            setCrudAction={setCrudAction}
-          />
-        ) : (
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              setCrudAction("ADD");
-            }}
-          >
-            Add
-          </button>
-        )}
+        <div className="questCard--header">
+          {crudAction === "ADD" ? (
+            <QuestForm
+              setTotalQuests={setTotalQuests}
+              setCrudAction={setCrudAction}
+            />
+          ) : (
+            <button
+              className="button sub--button"
+              onClick={(event) => {
+                event.preventDefault();
+                setCrudAction("ADD");
+              }}
+            >
+              ADD NEW QUEST
+            </button>
+          )}
+        </div>
+        <h3 className="title--list">Active Quests</h3>
+
         {quests
           ? quests.map((quest, index) => (
               <QuestCard

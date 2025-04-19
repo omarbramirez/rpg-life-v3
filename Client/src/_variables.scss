@@ -2,49 +2,58 @@
 $primary-color: #2D4342;
 $secondary-color: #82A0A7;
 $background-color: #C0CED1;
+$links-color: #2C3C42;
+$links-secondary-color:#A8B6B9;
+$links-hover-color: #628391;
+$links-hover-secondary-color:#8A9A9D;
+$rows-color: #7B979D;
+$tables-head: #465659;
 $text-color: #333;
 $text-light-color: #fff;
-$border-color: #ddd;
 
 // Typography
 $font-family-primary: 'Roboto', sans-serif;
 $font-family-secondary: 'Open Sans', sans-serif;
 $font-size-base: 16px;
-$font-size-small: 14px;
+$font-size-small: 15px;
 $font-size-large: 18px;
-$font-weight-normal: 400;
-$font-weight-bold: 700;
-$line-height-base: 1.5;
+$font-size-title: calc($font-size-base * 1.5);
+$font-size-subtitle: calc($font-size-base * 1.2);
 
-// Spacing
+// $font-weight-normal: 400;
+// $font-weight-bold: 700;
+// $line-height-base: 1.5;
+
+// // Spacing
 $spacing-unit: 8px;
-$spacing-small: $spacing-unit * 0.5;
-$spacing-medium: $spacing-unit * 1.5;
-$spacing-large: $spacing-unit * 2;
-$spacing-xlarge: $spacing-unit * 3;
+$content-padding: 0.1rem 0.6rem;
+// $spacing-small: $spacing-unit * 0.5;
+// $spacing-medium: $spacing-unit * 1.5;
+// $spacing-large: $spacing-unit * 2;
+// $spacing-xlarge: $spacing-unit * 3;
 
-// Breakpoints
-$breakpoint-mobile: 480px;
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
-$breakpoint-large-desktop: 1200px;
+// // Breakpoints
+// $breakpoint-mobile: 480px;
+// $breakpoint-tablet: 768px;
+// $breakpoint-desktop: 1024px;
+// $breakpoint-large-desktop: 1200px;
 
-// Borders
-$border-radius-small: 4px;
-$border-radius-medium: 8px;
-$border-radius-large: 12px;
-$border-width: 1px;
+// // Borders
+// $border-radius-small: 4px;
+// $border-radius-medium: 8px;
+// $border-radius-large: 12px;
+// $border-width: 1px;
 
-// Shadows
-$box-shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
-$box-shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.2);
-$box-shadow-large: 0 8px 16px rgba(0, 0, 0, 0.3);
+// // Shadows
+// $box-shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+// $box-shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.2);
+// $box-shadow-large: 0 8px 16px rgba(0, 0, 0, 0.3);
 
-// Transitions
-$transition-duration: 0.3s;
-$transition-timing-function: ease;
+// // Transitions
+// $transition-duration: 0.3s;
+// $transition-timing-function: ease;
 
-// Z-Index
-$z-index-low: 10;
-$z-index-medium: 100;
-$z-index-high: 1000;
+// // Z-Index
+// $z-index-low: 10;
+// $z-index-medium: 100;
+// $z-index-high: 1000;

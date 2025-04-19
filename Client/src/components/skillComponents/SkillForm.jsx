@@ -123,14 +123,17 @@ function SkillForm({ action, setTotalSkills, setAction }) {
           onChange={handleChange}
         />
       </div> */}
-      <button type="submit">Send</button>
+      <button className="button sub--button" type="submit">
+        SEND
+      </button>
       <button
+        className="button sub--button"
         onClick={(event) => {
           event.preventDefault();
           setAction(null);
         }}
       >
-        Close
+        X
       </button>
     </form>
   );

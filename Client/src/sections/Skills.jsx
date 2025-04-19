@@ -12,7 +12,7 @@ import {
 import CrudActions from "../components/CrudActions";
 import SkillForm from "../components/skillComponents/SkillForm";
 
-function Skills() {
+function Skills({ userName }) {
   const initialSkill = localStorage.getItem("currentSkill") || 0;
   const initialTotalSkills = localStorage.getItem("currentTotal") || 1;
 
@@ -119,30 +119,7 @@ function Skills() {
   };
 
   return (
-    <section>
-      <h2>SKILLS</h2>
-      <Pagination
-        setCurrentSkill={setCurrentSkill}
-        currentSkill={currentSkill}
-        totalSkills={totalSkills}
-      />
-      {crudAction === "EDIT" ? null : (
-        <CrudActions
-          setAction={setCrudAction}
-          element={skill}
-          setTotalElements={setTotalSkills}
-          handleCurrentElementDeleting={handleCurrentSkillDeleting}
-        />
-      )}
-
-      <button
-        onClick={(event) => {
-          event.preventDefault();
-          setCrudAction("ADD");
-        }}
-      >
-        Add
-      </button>
+    <>
       {crudAction === "ADD" ? (
         <SkillForm
           action={crudAction}
@@ -154,40 +131,82 @@ function Skills() {
           setAction={setCrudAction}
         />
       ) : null}
-      <SkillCard
-        skill={skill}
-        action={crudAction}
-        formData={formData}
-        handleChange={handleChange}
-        setFormData={setFormData}
-      />
-      <SkillItem
-        skill={skill}
-        action={crudAction}
-        formData={formData}
-        handleChange={handleChange}
-      />
-      {crudAction === "EDIT" ? (
-        <div>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              handleSubmit();
-            }}
-          >
-            Send
-          </button>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              setCrudAction(null);
-            }}
-          >
-            Close
-          </button>
-        </div>
-      ) : null}
-    </section>
+      <div id="pagination">
+        <Pagination
+          setCurrentSkill={setCurrentSkill}
+          currentSkill={currentSkill}
+          totalSkills={totalSkills}
+        />
+      </div>
+      <div className="section" id="skills">
+        <section className="skills--card">
+          <div className="info">
+            <h2 className="section--title" id="skills--title">
+              SKILLS
+            </h2>
+            <h4 className="username">{userName}</h4>
+            <button
+              className="button sub--button"
+              id="button--add"
+              onClick={(event) => {
+                event.preventDefault();
+                setCrudAction("ADD");
+              }}
+            >
+              ADD NEW SKILL
+            </button>
+          </div>
+          <SkillCard
+            skill={skill}
+            action={crudAction}
+            formData={formData}
+            handleChange={handleChange}
+            setFormData={setFormData}
+          />
+        </section>
+        <section className="skills--item">
+          <SkillItem
+            skill={skill}
+            action={crudAction}
+            formData={formData}
+            handleChange={handleChange}
+          />
+
+          <div>
+            {crudAction === "EDIT" ? null : (
+              <CrudActions
+                setAction={setCrudAction}
+                element={skill}
+                setTotalElements={setTotalSkills}
+                handleCurrentElementDeleting={handleCurrentSkillDeleting}
+              />
+            )}
+            {crudAction === "EDIT" ? (
+              <div>
+                <button
+                  className="button sub--button"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleSubmit();
+                  }}
+                >
+                  SEND
+                </button>
+                <button
+                  className="button sub--button"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setCrudAction(null);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            ) : null}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 

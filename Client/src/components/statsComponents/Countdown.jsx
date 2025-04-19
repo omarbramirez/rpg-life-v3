@@ -29,9 +29,9 @@ function Countdown({ targetDate }) {
 
   return (
     <div>
-      <h3>Deadline</h3>
+      <h3 id="deadline--title">Deadline</h3>
       {days !== undefined ? (
-        <ul>
+        <ul className="stats--deadline">
           <li>
             <p>{days} días</p>
           </li>

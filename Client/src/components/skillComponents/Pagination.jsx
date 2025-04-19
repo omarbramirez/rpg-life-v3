@@ -6,20 +6,22 @@ function Pagination({ setCurrentSkill, currentSkill, totalSkills }) {
   return (
     <>
       <button
+        className="button sub--button"
         onClick={(event) => {
           event.preventDefault();
           handlePagination("BACK", newSkill, setCurrentSkill, totalSkills);
         }}
       >
-        Anterior
+        BACK
       </button>
       <button
+        className="button sub--button"
         onClick={(event) => {
           event.preventDefault();
           handlePagination("NEXT", newSkill, setCurrentSkill, totalSkills);
         }}
       >
-        Siguiente
+        NEXT
       </button>
     </>
   );

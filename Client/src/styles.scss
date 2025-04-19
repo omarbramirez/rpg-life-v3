@@ -1,9 +1,75 @@
 @use 'reset';
 @use 'variables';
+@use 'app';
+@use 'stats';
+@use 'mixins';
+@use 'skills';
+@use 'quests';
 
-body {
+html {
     font-family: variables.$font-family-primary;
     font-size: variables.$font-size-base;
     color: variables.$text-color;
     background-color: variables.$background-color;
+  }
+.img{
+    max-width:500px;
+    min-width:200px;
+    margin: 2rem auto;
 }
+.section--title{
+    font-size: variables.$font-size-subtitle; 
+    text-align: right;
+  } 
+
+.section{
+    @include mixins.flex-center-row;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 50px;
+}
+.crudActions{
+    @include mixins.flex-center-row;
+}
+.button{
+    margin: variables.$spacing-unit;
+    color: variables.$links-color;
+}
+.sub--button{
+    font-size: 0.7rem;
+    color: variables.$links-color;
+    background-color: variables.$links-secondary-color;
+    margin: 0.2rem ;
+    padding: variables.$content-padding;
+    border-radius: 5%;
+}
+.button:hover{
+    color: variables.$links-hover-color;
+}
+.sub--button:hover{
+    background-color: variables.$links-hover-secondary-color;
+    color: variables.$text-light-color;
+}
+thead{
+    background-color: variables.$tables-head;
+    padding: variables.$content-padding;
+    color: variables.$text-light-color;
+}
+th{
+    text-align: left;
+    padding: variables.$content-padding;
+}
+
+tr{
+    margin:0.1rem 0rem;
+    background-color: variables.$rows-color;
+    border: solid 1px variables.$background-color ;
+
+}
+td{padding: variables.$content-padding;}
+p{
+    line-height: 1;
+    font-size: variables.$font-size-small;
+}
+
+

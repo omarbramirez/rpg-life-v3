@@ -13,16 +13,18 @@ function CompletedQuests({ totalQuests }) {
   }, [totalQuests]);
   return (
     <>
-      <h3>Completed Quests</h3>
-      {quests
-        ? quests.map((quest, index) => (
-            <QuestCard
-              key={`completed-quest-${index}`}
-              quest={quest}
-              completed={quest.completed}
-            />
-          ))
-        : null}
+      <div>
+        <h3 className="title--list">Completed Quests</h3>
+        {quests
+          ? quests.map((quest, index) => (
+              <QuestCard
+                key={`completed-quest-${index}`}
+                quest={quest}
+                completed={quest.completed}
+              />
+            ))
+          : null}
+      </div>
     </>
   );
 }

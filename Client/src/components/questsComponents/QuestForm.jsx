@@ -29,7 +29,6 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
   };
   useEffect(() => {
     getAllSkillsTitles().then((data) => {
-      console.log(data);
       setSkillsTitles(data);
     });
   }, []);
@@ -110,14 +109,17 @@ function QuestForm({ setTotalQuests, setCrudAction }) {
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Send</button>
+      <button className="button sub--button" type="submit">
+        SEND
+      </button>
       <button
+        className="button sub--button"
         onClick={(event) => {
           event.preventDefault();
           setCrudAction(null);
         }}
       >
-        Close
+        X
       </button>
     </form>
   );

@@ -65,10 +65,10 @@ function QuestCard({
   return (
     <div>
       {quest ? (
-        <ul>
+        <ul className="questCard">
           <li>
-            {action === "EDIT" ? (
-              <div>
+            <div>
+              {action === "EDIT" ? (
                 <input
                   type="text"
                   id="title"
@@ -77,113 +77,127 @@ function QuestCard({
                   onChange={handleChange}
                   required
                 />
-              </div>
-            ) : (
-              <h3>{quest.title}</h3>
-            )}
-          </li>
-          {!completed ? (
-            <li>
-              {action === "EDIT" ? (
-                <div>
-                  <label htmlFor="CXP">CXP:</label>
-                  <input
-                    type="number"
-                    id="CXP"
-                    name="CXP"
-                    value={formData.CXP >= 0 ? formData.CXP : 0}
-                    onChange={handleChange}
-                  />
-                </div>
               ) : (
-                <h4>{quest.CXP}</h4>
+                <h3 className="quest--title">{quest.title}</h3>
               )}
-            </li>
-          ) : null}
-          {!completed ? (
-            <li>
-              {action === "EDIT" ? (
-                <div>
-                  <label htmlFor="skill">Skill:</label>
-                  <select
-                    name="skill"
-                    id="skill"
-                    value={formData.skill || ""}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select Skill</option>
-                    {skillsTitles
-                      ? skillsTitles.map((skill) => (
-                          <option
-                            key={`skill-${skill.title}`}
-                            value={`${skill.title}`}
-                          >
-                            {skill.title}
-                          </option>
-                        ))
-                      : null}
-                  </select>
-                </div>
-              ) : (
-                <h4>{quest.skill}</h4>
-              )}
-            </li>
-          ) : null}
-
-          {!completed ? (
-            <li>
-              {action === "EDIT" ? (
-                <div>
-                  <label htmlFor="SXP">SXP:</label>
-                  <input
-                    type="number"
-                    id="SXP"
-                    name="SXP"
-                    value={formData.SXP >= 0 ? formData.SXP : 0}
-                    onChange={handleChange}
-                  />
-                </div>
-              ) : (
-                <h4>{quest.SXP}</h4>
-              )}
-            </li>
-          ) : null}
-
-          <li>
-            {action === "EDIT" ? (
+            </div>
+            <div className="questCard--xp">
               <div>
-                <label htmlFor="description">Description:</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                />
+                {!completed ? (
+                  <>
+                    {action === "EDIT" ? (
+                      <div>
+                        <label htmlFor="CXP">CXP:</label>
+                        <input
+                          type="number"
+                          id="CXP"
+                          name="CXP"
+                          value={formData.CXP >= 0 ? formData.CXP : 0}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    ) : (
+                      <h4 className="quest--points">CXP: {quest.CXP}</h4>
+                    )}
+                  </>
+                ) : null}
               </div>
-            ) : (
-              <p>{quest.description}</p>
-            )}
+
+              <div>
+                {!completed ? (
+                  <div>
+                    {action === "EDIT" ? (
+                      <div>
+                        <label htmlFor="SXP">SXP:</label>
+                        <input
+                          type="number"
+                          id="SXP"
+                          name="SXP"
+                          value={formData.SXP >= 0 ? formData.SXP : 0}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    ) : (
+                      <h4 className="quest--points">SXP: {quest.SXP}</h4>
+                    )}
+                  </div>
+                ) : null}
+              </div>
+              <ul>
+                <li>
+                  <div>
+                    {!completed ? (
+                      <div>
+                        {action === "EDIT" ? (
+                          <div>
+                            <label htmlFor="skill">Skill:</label>
+                            <select
+                              name="skill"
+                              id="skill"
+                              value={formData.skill || ""}
+                              onChange={handleChange}
+                              required
+                            >
+                              <option value="">Select Skill</option>
+                              {skillsTitles
+                                ? skillsTitles.map((skill) => (
+                                    <option
+                                      key={`skill-${skill.title}`}
+                                      value={`${skill.title}`}
+                                    >
+                                      {skill.title}
+                                    </option>
+                                  ))
+                                : null}
+                            </select>
+                          </div>
+                        ) : (
+                          <h4>{quest.skill}</h4>
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              {action === "EDIT" ? (
+                <div>
+                  <label htmlFor="description">Description:</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                  />
+                </div>
+              ) : (
+                <p>{quest.description}</p>
+              )}
+            </div>
           </li>
+
           {!completed ? (
             <li>
               {action === "EDIT" ? (
                 <div>
                   <button
+                    className="button sub--button"
                     onClick={(event) => {
                       event.preventDefault();
                       handleSubmit();
                     }}
                   >
-                    Send
+                    SEND
                   </button>
                   <button
+                    className="button sub--button"
                     onClick={(event) => {
                       event.preventDefault();
                       setCrudAction(null);
                     }}
                   >
-                    Close
+                    X
                   </button>
                 </div>
               ) : (
@@ -200,8 +214,9 @@ function QuestCard({
                       event.preventDefault();
                       handleCurrentQuestCompleting(quest, setTotalQuests);
                     }}
+                    className="button sub--button"
                   >
-                    Complete
+                    COMPLETE
                   </button>
                 </div>
               )}

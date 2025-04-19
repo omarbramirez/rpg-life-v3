@@ -5,13 +5,26 @@ function SkillItem({ skill, action, formData, handleChange }) {
     <>
       {skill ? (
         <ul key={`skill-${skill.title}`}>
-          {/* <li>
-            <img
-              className="skill_img"
-              src={`${pathValidator(skill.img, "imgs")}`}
-              alt={`${skill.title}-img`}
-            />
-          </li> */}
+          <li>
+            {action == "EDIT" ? (
+              <div>
+                <label htmlFor="img">URL:</label>
+                <textarea
+                  name="img"
+                  id="img"
+                  value={formData.img || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ) : (
+              <img
+                className="img skill_img"
+                src={`${pathValidator(skill.img, "imgs")}`}
+                alt={`${skill.title}-img`}
+              />
+            )}
+          </li>
           <li>
             {action === "EDIT" ? (
               <div>

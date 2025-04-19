@@ -146,11 +146,310 @@ hr {
   margin: 1em 0;
 }
 
-body {
+.chapter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chapter-container button {
+  align-self: center;
+}
+
+.chapter {
+  width: 100%;
+  margin: 20px auto 10px auto;
+  text-align: center;
+  font-size: 24px;
+}
+
+.section--selector {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.img.skill_img {
+  width: 40%;
+}
+
+.stats--characterInfo {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+#stats--title {
+  text-align: left;
+}
+
+.stats--avatar {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+.stats--avatar #user_profile {
+  width: 80%;
+}
+
+.stats--progressInfo {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+thead tr {
+  background-color: transparent;
+}
+
+.stats--number {
+  text-align: right;
+}
+
+.vertical--thead {
+  background-color: #465659;
+  color: #fff;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.info > div {
+  justify-items: end;
+}
+
+.username {
+  text-align: right;
+}
+
+.stats--deadline {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: left;
+}
+
+#deadline--title, #activeQuest--title {
+  font-size: 19.2px;
+}
+
+.stats--deadline li {
+  padding: 0.1rem 0.6rem;
+}
+
+.activeQuest--subtitle {
+  color: #2D4342;
+  line-height: 1;
+}
+
+.skill_icon {
+  width: 2.5rem;
+}
+
+#pagination {
+  width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.skills--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+}
+
+.skills--item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.img.skill_img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px ;
+
+  object-position: center;
+}
+
+#button--add {
+  margin-left: 0;
+}
+
+.skill--info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: right;
+}
+
+.skill--info--element {
+  padding: 0.1rem 0.6rem;
+}
+
+#skills {
+  justify-content: space-evenly;
+}
+
+.quests--lists {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.questCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #7B979D;
+  border: solid 1px #C0CED1;
+}
+
+.questCard--header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.questCard--xp {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.title--list {
+  text-align: center;
+  font-size: 19.2px;
+  background-color: #465659;
+  color: #fff;
+}
+
+.quest--points {
+  padding: 0.1rem 0.6rem;
+}
+
+.quest--title {
+  color: #fff;
+  line-height: 1;
+}
+
+.section--title.quests--section--title {
+  text-align: center;
+}
+
+html {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #333;
   background-color: #C0CED1;
+}
+
+.img {
+  max-width: 500px;
+  min-width: 200px;
+  margin: 2rem auto;
+}
+
+.section--title {
+  font-size: 19.2px;
+  text-align: right;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.crudActions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  margin: 8px;
+  color: #2C3C42;
+}
+
+.sub--button {
+  font-size: 0.7rem;
+  color: #2C3C42;
+  background-color: #A8B6B9;
+  margin: 0.2rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 5%;
+}
+
+.button:hover {
+  color: #628391;
+}
+
+.sub--button:hover {
+  background-color: #8A9A9D;
+  color: #fff;
+}
+
+thead {
+  background-color: #465659;
+  padding: 0.1rem 0.6rem;
+  color: #fff;
+}
+
+th {
+  text-align: left;
+  padding: 0.1rem 0.6rem;
+}
+
+tr {
+  margin: 0.1rem 0rem;
+  background-color: #7B979D;
+  border: solid 1px #C0CED1;
+}
+
+td {
+  padding: 0.1rem 0.6rem;
+}
+
+p {
+  line-height: 1;
+  font-size: 15px;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -32,7 +32,7 @@ exports.getActiveQuest = async(req,res)=>{
     const title = req.query.title
     try{
         const activeQuest = await myQuestsSchemas.QuestSchema.find({title: title});
-        res.status(200).json(activeQuest[0] )
+        res.status(200).json(activeQuest[0])
     }catch(err){
     console.error('Error:', err);
     res.status(500).json({ 
@@ -102,7 +102,7 @@ exports.levelUp = async(req,res) =>{
     const{
         totalPX, nextLevelPX, level} = user[0]
     const newTotalPX = Math.round(totalPX - nextLevelPX)  
-    const newNextLevelPX = Math.round(((nextLevelPX * 0.2) *
+    const newNextLevelPX = Math.round(((nextLevelPX * 0.02) *
     level ) + nextLevelPX)
     const updatedStats = { 
         nextLevelPX: newNextLevelPX,totalPX
@@ -119,14 +119,14 @@ exports.levelUp = async(req,res) =>{
         });
     }
 
-    res.status(200).json(updateCompleted);
+    res.status(200).json({updateCompleted: true});
 
     
 }
 
 exports.updateElement = async(req,res) =>{
     const modifiedFields = req.body.data
-    
+    console.log(modifiedFields)
     try{
         const updateCompleted = await myStatsSchemas.StatsSchema.updateOne(
             {},
